@@ -42,7 +42,7 @@ void onLostgear(char *attribute, uint8_t* msg, unsigned int msglen) {
 }
 
 void onConnected(char *attribute, uint8_t* msg, unsigned int msglen) {
-    Serial.println("Securely connected to NETPIE...");
+    Serial.println("Securely connected to NETPIE... ");
     microgear.setAlias(ALIAS);
 }
 
@@ -53,13 +53,13 @@ void setup() {
     microgear.on(ABSENT,onLostgear);
     microgear.on(CONNECTED,onConnected);
 
-    Serial.begin(115200);
+    Serial.begin(1152000);
     Serial.println("Starting...");
 
     if (WiFi.begin(ssid, password)) {
 
         while (WiFi.status() != WL_CONNECTED) {
-            delay(500);
+            delay(5000);
             Serial.print(".");
         }
     }
@@ -78,20 +78,20 @@ void loop() {
     if (microgear.connected()) {
         Serial.println("connected");
         microgear.loop();
-        if (timer >= 1000) {
+        if (timer >= 10000) {
             Serial.println("Publish...");
             microgear.chat(ALIAS,"Hello");
             timer = 0;
         } 
-        else timer += 100;
+        else timer += 1000;
     }
     else {
         Serial.println("connection lost, reconnect...");
-        if (timer >= 5000) {
+        if (timer >= 50000) {
             microgear.connect(APPID);
             timer = 0;
         }
-        else timer += 100;
+        else timer += 1000;
     }
-    delay(100);
+    delay(1000);
 }
