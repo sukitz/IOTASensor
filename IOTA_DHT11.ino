@@ -6,8 +6,8 @@ const char* ssid     = "ITreeMan";
 const char* password = "11223344";
 
 #define APPID   "IOTADHT11"
-#define KEY     "rD3EWrEAoPSBebi"
-#define SECRET  "FNcwevgXAuuszslivEPvexuhI"
+#define KEY     ""
+#define SECRET  ""
 
 #define ALIAS   "NodeMCU1"
 #define TargetWeb "HTML_web"
@@ -42,13 +42,13 @@ void setup()
     microgear.on(CONNECTED,onConnected);
 
     dht.begin();
-    Serial.begin(115200);
+    Serial.begin(11520);
     Serial.println("Starting...");
 
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) 
     {
-       delay(250);
+       delay(25);
        Serial.print(".");
     }
 
@@ -81,5 +81,5 @@ void loop()
     Serial.println("connection lost, reconnect...");
     microgear.connect(APPID);
    }
-    delay(1500);
+    delay(150);
 }
